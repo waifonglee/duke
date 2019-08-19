@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    protected static ArrayList<String> taskList = new ArrayList<String>();
+    protected static ArrayList<Task> taskList = new ArrayList<Task>();
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -28,17 +28,24 @@ public class Duke {
     }
 
     public static void printOutput(String input) {
-        switch (input.toLowerCase()) {
+        switch (input.toLowerCase().split(" ")[0]) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             case "list":
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.size(); i++) {
                     System.out.println(i + 1 + ". " + taskList.get(i));
                 }
                 break;
+            case "done":
+                String[] splitInput = input.split(" ");
+                Task current = taskList.get(Integer.parseInt(splitInput[1]) - 1);
+                current.markAsDone();
+                System.out.println("Nice! I've marked this task as done: \n" + current);
+                break;
             default:
-                taskList.add(input);
+                taskList.add(new Task(input));
                 System.out.println("added: " + input);
         }
     }
