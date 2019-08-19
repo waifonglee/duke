@@ -45,15 +45,26 @@ public class Duke {
             default:
                 String[] splitBySpace = input.split(" ");
                 if (splitBySpace.length == 2 && splitBySpace[0].equalsIgnoreCase("done")) {
-                    Task current = taskList.get(Integer.parseInt(splitBySpace[1]) - 1);
-                    current.markAsDone();
-                    System.out.println("Nice! I've marked this task as done: \n" + current);
-                } else {
-                    Task task = getTask(input);
-                    taskList.add(task);
-                    System.out.println("Got it. I've added this task: \n" + task + "\nNow you have "
-                            + taskList.size() + " task(s) in the list.");
+                    Task currTask = taskList.get(Integer.parseInt(splitBySpace[1]) - 1);
+                    currTask.markAsDone();
+                    System.out.println("Nice! I've marked this task as done: \n" + currTask);
+                    break;
                 }
+
+                if (splitBySpace.length == 2 && splitBySpace[0].equalsIgnoreCase("delete")) {
+                    int indToDel = Integer.parseInt(splitBySpace[1]) - 1;
+                    Task taskToDel = taskList.get(indToDel);
+                    taskList.remove(indToDel);
+                    System.out.println("Noted. I've removed this task: \n" + taskToDel + "\nNow you have "
+                            + taskList.size() + " task(s) in the list.");
+                    break;
+                }
+
+                Task task = getTask(input);
+                taskList.add(task);
+                System.out.println("Got it. I've added this task: \n" + task + "\nNow you have "
+                        + taskList.size() + " task(s) in the list.");
+
         }
     }
 
@@ -74,7 +85,7 @@ public class Duke {
                 break;
             case "event":
                 if (descArr.length == 0 || descArr[1].trim().isEmpty()) {
-                    throw new DukeException("☹ OOPS!!! The description of this event cannot be empty.");
+                    throw new DukeException("☹ OOPS!!! The description of event cannot be empty.");
                 }
                 String[] splitEv = descArr[1].split("/at");
                 if (splitEv.length < 2 || splitEv[0].trim().isEmpty() || splitEv[1].trim().isEmpty()) {
