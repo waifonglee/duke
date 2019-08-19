@@ -45,27 +45,34 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done: \n" + current);
                 break;
             case "todo":
-                Task newTd = new Todo(input.split("todo ")[1]);
-                taskList.add(newTd);
-                System.out.println("Got it. I've added this task: \n" + newTd + "\n Now you have "
-                        + taskList.size() + " task(s) in the list.");
-                break;
             case "deadline":
-                String[] splitDl = input.split("deadline ")[1].split(" /by ");
-                Task newDl = new Deadline(splitDl[0], splitDl[1]);
-                taskList.add(newDl);
-                System.out.println("Got it. I've added this task: \n" + newDl + "\n Now you have "
-                        + taskList.size() + " task(s) in the list.");
-                break;
             case "event":
-                String[] splitEv = input.split("event ")[1].split(" /at ");
-                Task newEv = new Event(splitEv[0], splitEv[1]);
-                taskList.add(newEv);
-                System.out.println("Got it. I've added this task: \n" + newEv + "\n Now you have "
+                Task task = getTask(input);
+                taskList.add(task);
+                System.out.println("Got it. I've added this task: \n" + task + "\nNow you have "
                         + taskList.size() + " task(s) in the list.");
                 break;
             default:
                 System.out.println("Invalid input");
         }
+    }
+
+    public static Task getTask(String input) {
+        String typeOfTask = input.split(" ")[0];
+        String taskDes = input.split(typeOfTask)[1];
+        Task newTask;
+        switch (typeOfTask.toLowerCase()) {
+            case "deadline":
+                String[] splitDl = taskDes.split("/by");
+                newTask = new Deadline(splitDl[0].trim(), splitDl[1].trim());
+                break;
+            case "event":
+                String[] splitEv = taskDes.split("/at");
+                newTask = new Event(splitEv[0].trim(), splitEv[1].trim());
+                break;
+            default:
+                newTask = new Todo(taskDes.trim());
+        }
+        return newTask;
     }
 }
