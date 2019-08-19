@@ -39,14 +39,33 @@ public class Duke {
                 }
                 break;
             case "done":
-                String[] splitInput = input.split(" ");
-                Task current = taskList.get(Integer.parseInt(splitInput[1]) - 1);
+                String[] splitBySpace = input.split(" ");
+                Task current = taskList.get(Integer.parseInt(splitBySpace[1]) - 1);
                 current.markAsDone();
                 System.out.println("Nice! I've marked this task as done: \n" + current);
                 break;
+            case "todo":
+                Task newTd = new Todo(input.split("todo ")[1]);
+                taskList.add(newTd);
+                System.out.println("Got it. I've added this task: \n" + newTd + "\n Now you have "
+                        + taskList.size() + " task(s) in the list.");
+                break;
+            case "deadline":
+                String[] splitDl = input.split("deadline ")[1].split(" /by ");
+                Task newDl = new Deadline(splitDl[0], splitDl[1]);
+                taskList.add(newDl);
+                System.out.println("Got it. I've added this task: \n" + newDl + "\n Now you have "
+                        + taskList.size() + " task(s) in the list.");
+                break;
+            case "event":
+                String[] splitEv = input.split("event ")[1].split(" /at ");
+                Task newEv = new Event(splitEv[0], splitEv[1]);
+                taskList.add(newEv);
+                System.out.println("Got it. I've added this task: \n" + newEv + "\n Now you have "
+                        + taskList.size() + " task(s) in the list.");
+                break;
             default:
-                taskList.add(new Task(input));
-                System.out.println("added: " + input);
+                System.out.println("Invalid input");
         }
     }
 }
