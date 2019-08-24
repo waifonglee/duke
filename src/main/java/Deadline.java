@@ -7,6 +7,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getSaveData() {
+        String status = isDone ? "1" : "0";
+        return "D \0 " + super.getSaveData() + " \0 " + by;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

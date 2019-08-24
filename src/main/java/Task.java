@@ -15,6 +15,14 @@ public class Task {
         this.isDone = true;
     }
 
+    public boolean getStatus() {
+        return isDone;
+    }
+
+    public String getSaveData() {
+        String status = isDone ? "1" : "0";
+        return status + " \0 " + description;
+    }
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
