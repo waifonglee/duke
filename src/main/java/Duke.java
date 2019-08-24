@@ -1,8 +1,11 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     protected static ArrayList<Task> taskList = new ArrayList<Task>();
+    protected static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -27,11 +30,13 @@ public class Duke {
                 }
             } catch (DukeException ex) {
                 System.err.println(ex.getMessage());
+            } catch (ParseException e) {
+                System.err.println(e.getMessage());
             }
         }
     }
 
-    public static void printOutput(String input) throws DukeException {
+    public static void printOutput(String input) throws DukeException, ParseException {
         switch (input.toLowerCase()) {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
@@ -68,7 +73,7 @@ public class Duke {
         }
     }
 
-    public static Task getTask(String input) throws DukeException {
+    public static Task getTask(String input) throws DukeException, ParseException {
         String typeOfTask = input.split(" ")[0];
         String[] descArr = input.split(typeOfTask);
         Task newTask;
@@ -81,7 +86,10 @@ public class Duke {
                 if (splitDl.length < 2 || splitDl[0].trim().isEmpty() || splitDl[1].trim().isEmpty()) {
                     throw new DukeException("☹ OOPS!!! Wrong format of description.");
                 }
-                newTask = new Deadline(splitDl[0].trim(), splitDl[1].trim());
+                if (!splitDl[1].trim().matches("\\d{2}\\/\\d{2}\\/\\d{4}\\s\\d{4}")) {
+                    throw new DukeException("☹ OOPS!!! Wrong date format, only write in dd/mm/yy HHmm");
+                }
+                newTask = new Deadline(splitDl[0].trim(), splitDl[1].trim(), dateFormatter);
                 break;
             case "event":
                 if (descArr.length == 0 || descArr[1].trim().isEmpty()) {
@@ -91,7 +99,10 @@ public class Duke {
                 if (splitEv.length < 2 || splitEv[0].trim().isEmpty() || splitEv[1].trim().isEmpty()) {
                     throw new DukeException("☹ OOPS!!! Wrong format of description.");
                 }
-                newTask = new Event(splitEv[0].trim(), splitEv[1].trim());
+                if (!splitEv[1].trim().matches("\\d{2}\\/\\d{2}\\/\\d{4}\\s\\d{4}")) {
+                    throw new DukeException("☹ OOPS!!! Wrong date format, only write in dd/mm/yy HHmm");
+                }
+                newTask = new Event(splitEv[0].trim(), splitEv[1].trim(), dateFormatter);
                 break;
             case "todo":
                 if (descArr.length == 0 || descArr[1].trim().isEmpty()) {
