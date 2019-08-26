@@ -2,20 +2,34 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.task.*;
 
+/**
+ * Represents a command to add a deadline object to TaskList.
+ */
 public class AddDeadline extends Command {
+    /** Description and deadline of task entered by user.*/
     protected String userIn;
 
+    /**
+     * Initializes an AddDeadline Object with the user input.
+     * @param userIn description and deadline of task entered by user.
+     */
     public AddDeadline(String userIn) {
         this.userIn = userIn;
     }
 
-    public void execute(TaskList tasks, Storage storage, Ui ui) throws DukeException {
+    /**
+     * Adds a Deadline task object into the list of tasks and prints out a message to
+     * inform the user of such.
+     * @param tasks TaskList object which represents the list of tasks created by the user.
+     * @param storage storage which loads, saves and stores data of user.
+     * @throws DukeException if user input is invalid.
+     */
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         try {
-            String[] spUserIn = userIn.split(" /by ");
-            Task newDl = new Deadline(spUserIn[0], spUserIn[1]);
+            String[] splitUserIn = userIn.split(" /by ");
+            Task newDl = new Deadline(splitUserIn[0], splitUserIn[1]);
             tasks.addTask(newDl);
             System.out.println("Got it. I've added this task: \n" + newDl + "\nNow you have "
                     + tasks.getSize() + " task(s) in the list.");

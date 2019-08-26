@@ -5,7 +5,16 @@ import duke.task.*;
 import duke.command.*;
 import java.util.ArrayList;
 
+/**
+ * Represents a Parser which is used to convert user input into the necessary objects.
+ */
 public class Parser {
+    /**
+     * Converts commands from user into the corresponding command objects to execute the commands.
+     * @param command command from the user.
+     * @return Command object created from the command from user.
+     * @throws DukeException if command is invalid.
+     */
     public static Command parseCommand(String command) throws DukeException {
         try {
             String[] splitString = command.split(" ", 2);
@@ -39,6 +48,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates new Task objects depending on the saved data of the user
+     * and adds it to the list of tasks. Completion of tasks are also checked
+     * against the data and will be marked as done if the task is completed.
+     * @param loadData saved data from the user to be loaded.
+     * @param tasks ArrayList of tasks created from loading previously saved data.
+     * @throws DukeException if description or time and date of tasks are invalid.
+     */
     public static void parseLoad(String loadData, ArrayList<Task> tasks) throws DukeException {
         String[] splitData = loadData.split(" \0 ");
         if (splitData[0].equals("T")) {
