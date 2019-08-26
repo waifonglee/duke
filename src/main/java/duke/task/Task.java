@@ -1,28 +1,33 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 public class Task {
-    protected String description;
+    String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws DukeException {
+        if (description.trim().isEmpty()) {
+            throw new DukeException("Description shouldn't be empty!");
+        }
         this.description = description;
         this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (isDone ? "\u2713" : "\u2718");
     }
 
     public void markAsDone() {
         this.isDone = true;
     }
 
-    public boolean getStatus() {
-        return isDone;
-    }
-
     public String getSaveData() {
         String status = isDone ? "1" : "0";
         return status + " \0 " + description;
     }
+
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }

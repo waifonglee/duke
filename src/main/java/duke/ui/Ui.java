@@ -1,4 +1,7 @@
+package duke.ui;
+
 import java.util.Scanner;
+import duke.exception.DukeException;
 
 public class Ui {
     private Scanner sc = new Scanner(System.in);;
@@ -20,10 +23,6 @@ public class Ui {
             throw new DukeException("Command cannot be empty");
         }
         return command;
-    }
-
-    public void showLoadingError() {
-        System.out.println("No saved data");
     }
 
     public void showError(String message) {
