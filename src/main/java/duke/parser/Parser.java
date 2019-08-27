@@ -1,13 +1,6 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.ListCommand;
-import duke.command.ExitCommand;
-import duke.command.AddDeadline;
-import duke.command.AddEvent;
-import duke.command.AddTodo;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -49,6 +42,8 @@ public class Parser {
                     return new DoneCommand(splitString[1]);
                 case "delete":
                     return new DeleteCommand(splitString[1]);
+                case "find":
+                    return new FindCommand(splitString[1]);
                 default:
                     throw new DukeException("Invalid Input!");
                 }
