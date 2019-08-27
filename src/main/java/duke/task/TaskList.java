@@ -7,21 +7,21 @@ import java.util.ArrayList;
  */
 public class TaskList {
     /** ArrayList of tasks created by the user in this TaskList.*/
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     /**
      * Initializes a TaskList object with the specified list of tasks.
-     * @param taskList an existing list of tasks which will be initialized with the TaskList object.
+     * @param tasks an existing list of tasks which will be initialized with the TaskList object.
      */
-    public TaskList(ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
      * Initializes a TaskList object with an empty list.
      */
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>();
     }
 
     /**
@@ -29,7 +29,7 @@ public class TaskList {
      * @param task task to be added to the list.
      */
     public void addTask(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -37,7 +37,7 @@ public class TaskList {
      * @param ind index of the task to be deleted from the list.
      */
     public void deleteTask(int ind) {
-        taskList.remove(ind);
+        tasks.remove(ind);
     }
 
     /**
@@ -46,7 +46,7 @@ public class TaskList {
      * @return Specified task.
      */
     public Task getTask(int ind) {
-        return taskList.get(ind);
+        return tasks.get(ind);
     }
 
     /**
@@ -54,6 +54,6 @@ public class TaskList {
      * @return Size of the list.
      */
     public int getSize() {
-        return taskList.size();
+        return tasks.size();
     }
 }
