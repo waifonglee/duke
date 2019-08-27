@@ -30,6 +30,8 @@ public class Parser {
                         return new DoneCommand(splitString[1]);
                     case "delete":
                         return new DeleteCommand(splitString[1]);
+                    case "find":
+                        return new FindCommand(splitString[1]);
                     default:
                         throw new DukeException("Invalid Input!");
                 }
