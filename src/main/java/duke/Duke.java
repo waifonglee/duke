@@ -1,7 +1,7 @@
-import duke.command.*;
+import duke.command.Command;
 import duke.ui.Ui;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.TaskList;
 import duke.parser.Parser;
 import duke.exception.DukeException;
 
@@ -15,7 +15,7 @@ public class Duke {
     /** TaskList to store all the tasks. */
     private TaskList tasks;
 
-    /** Ui to deal with user interaction */
+    /** Ui to deal with user interaction. */
     private Ui ui;
 
     /**

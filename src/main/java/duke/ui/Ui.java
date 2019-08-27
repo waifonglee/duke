@@ -8,7 +8,7 @@ import duke.exception.DukeException;
  */
 public class Ui {
     /** Scanner object which scans user input. */
-    private Scanner sc = new Scanner(System.in);;
+    private Scanner sc = new Scanner(System.in);
 
     /**
      * Prints out welcome message when user opens Duke.
@@ -44,5 +44,4 @@ public class Ui {
     public void showError(String message) {
         System.out.println(message);
     }
-
 }

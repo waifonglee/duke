@@ -1,22 +1,23 @@
 package duke.storage;
 
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.task.Task;
+import duke.task.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import duke.exception.DukeException;
-import duke.task.*;
-import duke.parser.Parser;
 
 /**
  * Represents a storage to store, load and save data of user.
  */
 public class Storage {
-    /** Path of the file */
+    /** Path of the file. */
     protected String filePath;
 
-    /** File object of the filePath */
+    /** File object of the filePath. */
     protected File dataFile;
 
     /**
@@ -33,7 +34,7 @@ public class Storage {
      * Data is converted into an ArrayList of tasks.
      * @return ArrayList of tasks which were saved previously by the user.
      * @throws DukeException if there is error loading the data or there is
-     * no previous data.
+     *     no previous data.
      */
     public ArrayList<Task> load() throws DukeException {
         try {

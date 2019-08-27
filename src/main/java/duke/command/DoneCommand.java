@@ -2,7 +2,8 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents a command to complete a task.

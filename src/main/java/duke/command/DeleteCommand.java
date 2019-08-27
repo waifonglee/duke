@@ -2,7 +2,8 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents a command to delete a task in the list of tasks.
@@ -12,7 +13,7 @@ public class DeleteCommand extends Command {
     String userIn;
 
     /**
-     * Initializes a DeleteCommand with the user input
+     * Initializes a DeleteCommand with the user input.
      * @param userIn index of task user wants to delete.
      */
     public DeleteCommand(String userIn) {
