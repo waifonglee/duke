@@ -5,11 +5,27 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents an Event.
+ */
 public class Event extends Task {
+    /** String which represents the date and time of the event. */
     protected String at;
+
+    /** Date object which represents the date and time of the event. */
     protected Date dateAt;
+
+    /** Formatter object to format the date and time correctly. */
     protected static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
+    /**
+     * Initializes an Event Object with the description of the event and its date
+     * and time.
+     * This object is initialized as uncompleted.
+     * @param description description of the event.
+     * @param at date and time of the event.
+     * @throws DukeException if description is empty or the date and time is of the wrong format.
+     */
     public Event(String description, String at) throws DukeException {
         super(description);
         this.at = at;
@@ -27,12 +43,20 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns a string representation to be used for saving data of this object.
+     * @return String representation of this object for saving.
+     */
     @Override
     public String getSaveData() {
         String status = isDone ? "1" : "0";
         return "D \0 " + super.getSaveData() + " \0 " + at;
     }
 
+    /**
+     * Returns a string representation of this object.
+     * @return String representation of this object.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
