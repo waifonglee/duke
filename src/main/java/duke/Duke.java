@@ -1,3 +1,5 @@
+package duke;
+
 import duke.command.*;
 import duke.ui.Ui;
 import duke.storage.Storage;
