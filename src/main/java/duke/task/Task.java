@@ -42,6 +42,15 @@ public class Task {
     }
 
     /**
+     * Returns a string consisting of keywords that users can use to search for this
+     * task.
+     * @return String of keywords.
+     */
+    public String getKeywords() {
+        return description;
+    }
+
+    /**
      * Returns a string representation to be used for saving data of this object.
      * @return String representation of this object for saving.
      */

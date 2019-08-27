@@ -44,6 +44,16 @@ public class Event extends Task {
     }
 
     /**
+     * Returns a string consisting of keywords that users can use to search for this
+     * event.
+     * @return String of keywords.
+     */
+    @Override
+    public String getKeywords() {
+        return description + " " + at;
+    }
+
+    /**
      * Returns a string representation to be used for saving data of this object.
      * @return String representation of this object for saving.
      */

@@ -30,7 +30,7 @@ public class FindCommand extends Command {
         int count = 1;
         for (int i = 0; i < tasks.getSize(); i++) {
             Task currTask = tasks.getTask(i);
-            String[] splitString = currTask.toString().split(" ");
+            String[] splitString = currTask.getKeywords().split(" ");
             for (String s : splitString) {
                 if (s.equalsIgnoreCase(userIn)) {
                     System.out.println(count + ". " + currTask);

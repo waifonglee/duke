@@ -43,6 +43,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns a string consisting of keywords that users can use to search for this
+     * task.
+     * @return String of keywords.
+     */
+    @Override
+    public String getKeywords() {
+        return description + " " + by;
+    }
+
+    /**
      * Returns a string representation to be used for saving data of this object.
      * @return String representation of this object for saving.
      */
