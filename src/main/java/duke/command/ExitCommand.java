@@ -18,6 +18,6 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         System.out.println("Bye. Hope to see you again soon!");
         storage.saveAll(tasks);
-        this.isExit = true;
+        isExit = true;
     }
 }

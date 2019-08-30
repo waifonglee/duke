@@ -10,7 +10,7 @@ public class Task {
     protected String description;
 
     /** Boolean which represents whether the task is completed. */
-    protected boolean isDone;
+    protected boolean isDone = false;
 
     /**
      * Initializes a Task Object with the description of the task.
@@ -23,7 +23,6 @@ public class Task {
             throw new DukeException("Description shouldn't be empty!");
         }
         this.description = description;
-        this.isDone = false;
     }
 
     /**
@@ -38,7 +37,7 @@ public class Task {
      * Completes this task.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**

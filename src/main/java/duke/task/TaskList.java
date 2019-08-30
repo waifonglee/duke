@@ -21,7 +21,7 @@ public class TaskList {
      * Initializes a TaskList object with an empty list.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        tasks = new ArrayList<Task>();
     }
 
     /**

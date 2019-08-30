@@ -26,7 +26,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.dataFile = new File(filePath);
+        dataFile = new File(filePath);
     }
 
     /**
