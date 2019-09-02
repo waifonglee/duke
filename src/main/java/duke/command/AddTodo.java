@@ -22,16 +22,17 @@ public class AddTodo extends Command {
     }
 
     /**
-     * Adds a Todo task object into the list of tasks and prints out a message to
-     * inform the user of such.
+     * Adds a Todo task object into the list of tasks.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
+     * @return String to notify the user of the execution of this command.
      * @throws DukeException if user input is invalid.
      */
-    public void execute(TaskList tasks, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         Task newTodo = new Todo(userIn);
         tasks.addTask(newTodo);
-        System.out.println("Got it. I've added this task: \n" + newTodo + "\nNow you have "
-                + tasks.getSize() + " task(s) in the list.");
+        String response = "Got it. I've added this task: \n" + newTodo + "\nNow you have "
+                + tasks.getSize() + " task(s) in the list.";
+        return response;
     }
 }

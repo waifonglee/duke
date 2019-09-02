@@ -10,14 +10,15 @@ import duke.task.TaskList;
 public class ExitCommand extends Command {
     /**
      * Saves the TaskList in the storage file and changes isExit to true to exit the program.
-     * A relevant message will be printed.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
+     * @return String to notify the user of the execution of this command.
      * @throws DukeException if there is a saving error.
      */
-    public void execute(TaskList tasks, Storage storage) throws DukeException {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
+        String response = "Bye. Hope to see you again soon!";
         storage.saveAll(tasks);
         isExit = true;
+        return response;
     }
 }

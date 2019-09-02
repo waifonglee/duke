@@ -1,7 +1,6 @@
 package duke;
 
 import duke.command.Command;
-import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.parser.Parser;
@@ -17,45 +16,54 @@ public class Duke {
     /** TaskList to store all the tasks. */
     private TaskList tasks;
 
-    /** Ui to deal with user interaction. */
-    private Ui ui;
+    /** Boolean to check whether user is exiting Duke. */
+    private boolean isExit;
 
     /**
      * Initializes a Duke object with the specified file path to create a storage path.
-     * Previously saved data will be loaded and converted into a list of tasks
-     * if there was one. Otherwise, an empty list will be initialized.
-     * @param filePath file path for storage file.
      */
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+    public Duke() {
+        storage = new Storage("data.txt");
+        isExit = false;
+    }
+
+    /**
+     * Previously saved data will be loaded and converted into a list of tasks.
+     * Otherwise, an empty list will be initialized.
+     * @return notice notifying the user of whether data is loaded.
+     */
+    public String loadStorage() {
+        String s = "Hello i'm Duke! What can i do for you?";
         try {
             tasks = new TaskList(storage.load());
+            return "Successfully loaded previous data. \n" + s;
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
             tasks = new TaskList();
+            return e.getMessage() + "\n" + s;
         }
     }
 
     /**
-     * Runs Duke by reading user input until user exits the program.
+     * Checks whether user is exiting Duke.
+     * @return boolean signifying whether user is exiting Duke.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parseCommand(fullCommand);
-                c.execute(tasks, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            }
-        }
+    public boolean isExit() {
+        return isExit;
     }
 
-    public static void main(String[] args) {
-        new Duke("data.txt").run();
+    /**
+     * Gets response to the user input.
+     * @param input commands users entered to be executed.
+     * @return response to the user to be printed out.
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            String response =  c.execute(tasks, storage);
+            isExit = c.isExit();
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
     }
 }

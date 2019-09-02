@@ -24,8 +24,9 @@ public abstract class Command {
      * the storage.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
+     * @return String to notify the user of the execution of this command.
      * @throws DukeException if user input is invalid.
      */
-    public abstract void execute(TaskList tasks, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
 
 }

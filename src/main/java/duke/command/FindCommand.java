@@ -20,23 +20,25 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Finds tasks that contain the keyword entered by user and print the relevant
-     * message.
+     * Finds tasks that contain the keyword entered by user.
      * @param tasks TaskList representing a list of all tasks.
      * @param storage storage used for saving, loading and storing user data.
+     * @return String to notify the user of the execution of this command.
      */
-    public void execute(TaskList tasks, Storage storage) {
-        System.out.println("Here are the matching tasks in your list");
+    public String execute(TaskList tasks, Storage storage) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list + \n");
         int count = 1;
         for (int i = 0; i < tasks.getSize(); i++) {
             Task currTask = tasks.getTask(i);
             String[] splitString = currTask.getKeywords().split(" ");
             for (String s : splitString) {
                 if (s.equalsIgnoreCase(userIn)) {
-                    System.out.println(count + ". " + currTask);
+                    sb.append(count + ". " + currTask + "\n");
                     count++;
                 }
             }
         }
+        return sb.toString();
     }
 }
