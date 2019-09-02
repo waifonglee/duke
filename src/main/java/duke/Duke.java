@@ -11,21 +11,13 @@ import duke.exception.DukeException;
  */
 public class Duke {
     /** Storage to load, save and store user data. */
-    private Storage storage;
+    private Storage storage = new Storage("data.txt");
 
     /** TaskList to store all the tasks. */
     private TaskList tasks;
 
     /** Boolean to check whether user is exiting Duke. */
-    private boolean isExit;
-
-    /**
-     * Initializes a Duke object with the specified file path to create a storage path.
-     */
-    public Duke() {
-        storage = new Storage("data.txt");
-        isExit = false;
-    }
+    private boolean isExit = false;
 
     /**
      * Previously saved data will be loaded and converted into a list of tasks.
