@@ -50,6 +50,7 @@ public class Event extends Task {
      */
     @Override
     public String getKeywords() {
+        assert dateAt != null;
         return description + " " + at;
     }
 
@@ -59,7 +60,7 @@ public class Event extends Task {
      */
     @Override
     public String getSaveData() {
-        String status = isDone ? "1" : "0";
+        assert dateAt != null;
         return "D \0 " + super.getSaveData() + " \0 " + at;
     }
 
@@ -69,6 +70,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        assert dateAt != null;
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
 }

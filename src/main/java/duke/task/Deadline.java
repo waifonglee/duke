@@ -49,6 +49,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getKeywords() {
+        assert dateBy != null;
         return description + " " + by;
     }
 
@@ -58,7 +59,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveData() {
-        String status = isDone ? "1" : "0";
+        assert dateBy != null;
         return "D \0 " + super.getSaveData() + " \0 " + by;
     }
 
@@ -68,6 +69,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert dateBy != null;
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }

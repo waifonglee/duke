@@ -15,6 +15,7 @@ public class AddTodo extends Command {
 
     /**
      * Initializes an AddTodo Object with the user input.
+     *
      * @param userIn description of task entered by user.
      */
     public AddTodo(String userIn) {
@@ -23,6 +24,7 @@ public class AddTodo extends Command {
 
     /**
      * Adds a Todo task object into the list of tasks.
+     *
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
      * @return String to notify the user of the execution of this command.
