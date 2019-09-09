@@ -87,6 +87,7 @@ public class Parser {
             }
             tasks.add(t);
         } else {
+            assert splitData[0].equals("E") : splitData[0];
             Task t = new Event(splitData[2], splitData[3]);
             if (splitData[1].equals("1")) {
                 t.markAsDone();
