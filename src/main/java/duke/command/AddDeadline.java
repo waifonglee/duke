@@ -1,10 +1,14 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.parser.Parser;
 import duke.storage.Storage;
+import duke.tag.Tag;
 import duke.task.Deadline;
 import duke.task.TaskList;
 import duke.task.Task;
+
+import java.util.HashSet;
 
 /**
  * Represents a command to add a deadline object to TaskList.
@@ -12,6 +16,11 @@ import duke.task.Task;
 public class AddDeadline extends Command {
     /** Description and deadline of task entered by user.*/
     protected String userIn;
+
+    private static final String MESSAGE_SUCCESS = "Got it. I've added this task: \n"
+            + "%s" + "\n" + "Now you have %d task(s) in the list.";
+
+    private static final String MESSAGE_INVALID_INPUT = "Invalid description entered";
 
     /**
      * Initializes an AddDeadline Object with the user input.
@@ -30,15 +39,28 @@ public class AddDeadline extends Command {
      */
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         try {
-            String[] splitUserIn = userIn.split(" /by ");
-            Task newDl = new Deadline(splitUserIn[0], splitUserIn[1]);
-            tasks.addTask(newDl);
-            String response = "Got it. I've added this task: \n" + newDl + "\nNow you have "
-                    + tasks.getSize() + " task(s) in the list.";
-            return response;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid description");
-        }
+            Task newDl;
+            String[] splitInput = userIn.split(" /by ");
+            String desc = splitInput[0];
+            String[] splitByTag = splitInput[1].split(" /tag ");
+            boolean isTagged = splitByTag.length > 1;
 
+            if (isTagged) {
+                String by = splitByTag[0];
+                String inputTags = splitByTag[1];
+                HashSet<Tag> tags = Parser.parseTags(inputTags);
+                newDl = new Deadline(desc, by, tags);
+            } else {
+                String by = splitInput[1];
+                newDl = new Deadline(desc,by);
+            }
+
+            tasks.addTask(newDl);
+            int taskNum = tasks.getSize();
+            return String.format(MESSAGE_SUCCESS, newDl, taskNum);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(MESSAGE_INVALID_INPUT);
+        }
     }
 }

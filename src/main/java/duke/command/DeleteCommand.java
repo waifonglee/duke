@@ -12,6 +12,11 @@ public class DeleteCommand extends Command {
     /** Index of task user wants to delete. */
     String userIn;
 
+    private static final String MESSAGE_SUCCESS =  "Noted. I've removed this task: \n"
+            + "%s" + "\n" + "Now you have %d task(s) in the list.";
+
+    private static final String MESSAGE_INVALID_NUM = "Invalid task number entered";
+
     /**
      * Initializes a DeleteCommand with the user input.
      * @param userIn index of task user wants to delete.
@@ -29,14 +34,13 @@ public class DeleteCommand extends Command {
      */
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         try {
-            int ind = Integer.parseInt(userIn) - 1;
-            Task delTask = tasks.getTask(ind);
-            tasks.deleteTask(ind);
-            String response = "Noted. I've removed this task: \n" + delTask + "\nNow you have "
-                    + tasks.getSize() + " task(s) in the list.";
-            return response;
+            int taskInd = Integer.parseInt(userIn) - 1;
+            Task delTask = tasks.getTask(taskInd);
+            tasks.deleteTask(taskInd);
+            int taskNum = tasks.getSize();
+            return String.format(MESSAGE_SUCCESS, delTask, taskNum);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid task number entered");
+            throw new DukeException(MESSAGE_INVALID_NUM);
         }
     }
 }

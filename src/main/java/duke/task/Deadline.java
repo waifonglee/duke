@@ -1,9 +1,12 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.tag.Tag;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * Represents a Task which has a deadline to adhere to.
@@ -18,6 +21,10 @@ public class Deadline extends Task {
     /** Formatter object to format the deadline correctly. */
     protected static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
+    private static final String MESSAGE_INVALID_DATE = "Invalid Date entered.";
+
+    private static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date format entered : dd/mm/yyyy HHmm";
+
     /**
      * Initializes a Deadline Object with the description of the task and the deadline of the task.
      * This object is initialized as uncompleted.
@@ -31,26 +38,41 @@ public class Deadline extends Task {
         checkValidBy();
     }
 
+    /**
+     * Initializes a Deadline Object with the description, deadline and tags of the task.
+     * @param description description of the task.
+     * @param by deadline of task.
+     * @param tags tags tagged with tasks.
+     * @throws DukeException if description is empty or the deadline is of the wrong format.
+     */
+    public Deadline(String description, String by, HashSet<Tag> tags) throws DukeException {
+        super(description, tags);
+        this.by = by;
+        checkValidBy();
+    }
+
     private void checkValidBy() throws DukeException {
         try {
             this.dateBy = formatter.parse(by);
-            if (!formatter.format(dateBy).equals(by)) {
-                throw new DukeException("Invalid date!");
+            boolean isEquivDate = formatter.format(dateBy).equals(by);
+            if (!isEquivDate) {
+                throw new DukeException(MESSAGE_INVALID_DATE);
             }
         } catch (ParseException e) {
-            throw new DukeException("Invalid date format : dd/mm/yyyy HHmm");
+            throw new DukeException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
     /**
-     * Returns a string consisting of keywords that users can use to search for this
-     * task.
-     * @return String of keywords.
+     * Checks whether the task contains a certain word.
+     * @param word word to search for.
+     * @return whether task contains the word.
      */
     @Override
-    public String getKeywords() {
+    public boolean hasWord(String word) {
         assert dateBy != null;
-        return description + " " + by;
+        String s = description + by;
+        return s.toLowerCase().contains(word.toLowerCase());
     }
 
     /**
@@ -60,7 +82,13 @@ public class Deadline extends Task {
     @Override
     public String getSaveData() {
         assert dateBy != null;
-        return "D \0 " + super.getSaveData() + " \0 " + by;
+        String status = isDone ? "1" : "0";
+        boolean isTagged = !tags.isEmpty();
+        if (isTagged) {
+            return "D \0 " + status + " \0 " + description + " \0 " + by + " \0 " + getTags();
+        } else {
+            return "D \0 " + status + " \0 " + description + " \0 " + by;
+        }
     }
 
     /**
@@ -70,6 +98,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         assert dateBy != null;
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        boolean isTagged = !tags.isEmpty();
+        if (isTagged) {
+            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")" + tags;
+        } else {
+            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        }
     }
 }

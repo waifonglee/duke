@@ -1,6 +1,9 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.tag.Tag;
+
+import java.util.HashSet;
 
 /**
  * Represents a task to be done.
@@ -17,12 +20,21 @@ public class Todo extends Task {
     }
 
     /**
+     * Initializes a Todo object with description and tags of the task.
+     * @param description description of task.
+     * @param tags tags tagged with the task.
+     * @throws DukeException if description is empty or just white spaces.
+     */
+    public Todo(String description, HashSet<Tag> tags) throws DukeException {
+        super(description, tags);
+    }
+
+    /**
      * Returns a string representation to be used for saving data of this object.
      * @return String representation of this object for saving.
      */
     @Override
     public String getSaveData() {
-        String status = isDone ? "1" : "0";
         return "T \0 " + super.getSaveData();
     }
 

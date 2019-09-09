@@ -1,9 +1,12 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.tag.Tag;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * Represents an Event.
@@ -17,6 +20,10 @@ public class Event extends Task {
 
     /** Formatter object to format the date and time correctly. */
     protected static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+
+    private static final String MESSAGE_INVALID_DATE = "Invalid Date entered.";
+
+    private static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date format entered : dd/mm/yyyy HHmm";
 
     /**
      * Initializes an Event Object with the description of the event and its date
@@ -32,26 +39,41 @@ public class Event extends Task {
         checkValidAt();
     }
 
+    /**
+     * Initializes an Event Object with the description, date and time and tags.
+     * @param description description of event.
+     * @param at date and time of event.
+     * @param tags tags tagged with event.
+     * @throws DukeException if description is empty or date and itme is of wrong format.
+     */
+    public Event(String description, String at, HashSet<Tag> tags) throws DukeException {
+        super(description, tags);
+        this.at = at;
+        checkValidAt();
+    }
+
     private void checkValidAt() throws DukeException {
         try {
             this.dateAt = formatter.parse(at);
-            if (!formatter.format(dateAt).equals(at)) {
-                throw new DukeException("Invalid date!");
+            boolean isEquivDate = formatter.format(dateAt).equals(at);
+            if (!isEquivDate) {
+                throw new DukeException(MESSAGE_INVALID_DATE);
             }
         } catch (ParseException e) {
-            throw new DukeException("Invalid date format : dd/mm/yyyy HHmm");
+            throw new DukeException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
     /**
-     * Returns a string consisting of keywords that users can use to search for this
-     * event.
-     * @return String of keywords.
+     * Checks whether the task contains a certain word.
+     * @param word word to search for.
+     * @return whether task contains the word.
      */
     @Override
-    public String getKeywords() {
+    public boolean hasWord(String word) {
         assert dateAt != null;
-        return description + " " + at;
+        String s = description + at;
+        return s.toLowerCase().contains(word.toLowerCase());
     }
 
     /**
@@ -61,7 +83,13 @@ public class Event extends Task {
     @Override
     public String getSaveData() {
         assert dateAt != null;
-        return "D \0 " + super.getSaveData() + " \0 " + at;
+        String status = isDone ? "1" : "0";
+        boolean isTagged = !tags.isEmpty();
+        if (isTagged) {
+            return "E \0 " + status + " \0 " + description + " \0 " + at + " \0 " + getTags();
+        } else {
+            return "E \0 " + status + " \0 " + description + " \0 " + at;
+        }
     }
 
     /**
@@ -71,6 +99,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         assert dateAt != null;
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        boolean isTagged = !tags.isEmpty();
+        if (isTagged) {
+            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")" + tags;
+        } else {
+            return "[E]" + "[" +getStatusIcon() + "] " + description + " (at: " + at + ")";
+        }
     }
 }

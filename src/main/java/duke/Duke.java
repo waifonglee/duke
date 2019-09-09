@@ -51,7 +51,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command c = Parser.parseCommand(input);
-            String response =  c.execute(tasks, storage);
+            String response = c.execute(tasks, storage);
             isExit = c.isExit();
             return response;
         } catch (DukeException e) {

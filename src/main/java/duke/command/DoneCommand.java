@@ -12,6 +12,10 @@ public class DoneCommand extends Command {
     /** Index of task user has completed. */
     String userIn;
 
+    private static final String MESSAGE_SUCCESS = "Nice! I've marked this task as done: \n" + "%s";
+
+    private static final String MESSAGE_INVALID_NUM = "Invalid task number entered";
+
     /**
      * Initializes a DoneCommand with the user input.
      * @param userIn index of task user has completed.
@@ -29,13 +33,12 @@ public class DoneCommand extends Command {
      */
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         try {
-            int ind = Integer.parseInt(userIn) - 1;
-            Task currTask = tasks.getTask(ind);
+            int taskInd = Integer.parseInt(userIn) - 1;
+            Task currTask = tasks.getTask(taskInd);
             currTask.markAsDone();
-            String response = "Nice! I've marked this task as done: \n" + currTask;
-            return response;
+            return String.format(MESSAGE_SUCCESS,currTask);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid task number entered");
+            throw new DukeException(MESSAGE_INVALID_NUM);
         }
     }
 }

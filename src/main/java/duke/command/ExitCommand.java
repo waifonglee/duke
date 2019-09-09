@@ -8,6 +8,8 @@ import duke.task.TaskList;
  * Represents a command to exit the program.
  */
 public class ExitCommand extends Command {
+    private static final String MESSAGE_SUCCESS = "Bye. Hope to see you again soon!";
+
     /**
      * Saves the TaskList in the storage file and changes isExit to true to exit the program.
      * @param tasks TaskList object which represents the list of tasks created by the user.
@@ -16,9 +18,8 @@ public class ExitCommand extends Command {
      * @throws DukeException if there is a saving error.
      */
     public String execute(TaskList tasks, Storage storage) throws DukeException {
-        String response = "Bye. Hope to see you again soon!";
         storage.saveAll(tasks);
         isExit = true;
-        return response;
+        return MESSAGE_SUCCESS;
     }
 }
