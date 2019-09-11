@@ -36,6 +36,7 @@ public class AddTagCommand extends Command {
             String[] getArgs = userIn.split(" ", 2);
             String ind = getArgs[0];
             boolean isOneWordTag = getArgs[1].split(" ").length == 1;
+
             if (isOneWordTag) {
                 Tag tag = new Tag(getArgs[1]);
                 int taskInd = Integer.parseInt(ind) - 1;
@@ -45,6 +46,7 @@ public class AddTagCommand extends Command {
             } else {
                 throw new DukeException(MESSAGE_INVALID_NUM_TAG);
             }
+
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException(MESSAGE_INVALID_FORMAT);
         }
