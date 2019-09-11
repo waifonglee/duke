@@ -21,6 +21,8 @@ public class Storage {
     /** File object of the filePath. */
     protected File dataFile;
 
+    private static final String MESSAGE_NO_PREV_DATA = "No previously saved data.";
+
     /**
      * Initializes a Storage object with the specified file path.
      * @param filePath file path of the file to be used to save data.
@@ -41,7 +43,7 @@ public class Storage {
         try {
             boolean shouldCreate = dataFile.createNewFile();
             if (shouldCreate) {
-                throw new DukeException("No previously saved data");
+                throw new DukeException(MESSAGE_NO_PREV_DATA);
             }
             ArrayList<Task> tasks = new ArrayList<Task>();
             Scanner sc = new Scanner(dataFile);
@@ -51,7 +53,7 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
-            throw new DukeException("Error loading");
+            throw new DukeException(e.getMessage());
         }
     }
 
@@ -69,7 +71,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("Error saving");
+            throw new DukeException(e.getMessage());
         }
     }
 }

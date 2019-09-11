@@ -1,6 +1,11 @@
 package duke.task;
 
+import duke.exception.DukeException;
+import duke.tag.Tag;
+import duke.tag.TagManager;
+
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 /**
  * Represents a list of every task created by the user.
@@ -9,12 +14,17 @@ public class TaskList {
     /** ArrayList of tasks created by the user in this TaskList.*/
     private ArrayList<Task> tasks;
 
+    /** TagManager to manage all the tags created in this list of task. */
+    private TagManager tm = new TagManager();
+
     /**
      * Initializes a TaskList object with the specified list of tasks.
+     * Also initialises all the tags created.
      * @param tasks an existing list of tasks which will be initialized with the TaskList object.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+        tm.initTags(this);
     }
 
     /**
@@ -25,19 +35,41 @@ public class TaskList {
     }
 
     /**
-     * Adds a specified task to the list.
+     * Adds a specified task to the list as well as the tags.
      * @param task task to be added to the list.
      */
     public void addTask(Task task) {
         tasks.add(task);
+        tm.putTags(task.getTagSet());
+    }
+
+    public void alterTaskTag(int ind, Tag tag, boolean isAdding) throws DukeException {
+        Task task = tasks.get(ind);
+        if (isAdding) {
+            task.addTag(tag);
+            tm.addTag(tag);
+        } else {
+            task.rmTag(tag);
+            tm.rmTag(tag);
+        }
     }
 
     /**
-     * Deletes a specified task from the list.
+     * Deletes a specified task from the list as well as the tags.
      * @param ind index of the task to be deleted from the list.
      */
     public void deleteTask(int ind) {
+        Task t = tasks.get(ind);
+        tm.decreaseCount(t.getTagSet());
         tasks.remove(ind);
+    }
+
+    /**
+     * Returns a list of all tags created.
+     * @return list of all tags.
+     */
+    public String getAllTags() {
+        return tm.toString();
     }
 
     /**
@@ -55,5 +87,13 @@ public class TaskList {
      */
     public int getSize() {
         return tasks.size();
+    }
+
+    /**
+     * Returns list in stream format.
+     * @return stream of the list.
+     */
+    public Stream<Task> getStream() {
+        return tasks.stream();
     }
 }

@@ -1,28 +1,24 @@
 package duke.parser;
 
-import duke.command.AddTodo;
-import duke.command.Command;
-import duke.command.DoneCommand;
-import duke.command.DeleteCommand;
-import duke.command.AddEvent;
-import duke.command.ExitCommand;
-import duke.command.AddDeadline;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-
+import duke.command.*;
 import duke.exception.DukeException;
 
+import duke.tag.Tag;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Represents a Parser which is used to convert user input into the necessary objects.
  */
 public class Parser {
+    private static final String MESSAGE_INVALID_INPUT = "Invalid Input entered";
+    private static final String MESSAGE_INVALID_TAG = "Invalid Tag entered";
     /**
      * Converts commands from user into the corresponding command objects to execute the commands.
      * @param command command from the user.
@@ -32,17 +28,23 @@ public class Parser {
     public static Command parseCommand(String command) throws DukeException {
         try {
             String[] splitString = command.split(" ", 2);
-            if (splitString.length == 1) {
-                switch (splitString[0].toLowerCase()) {
+            boolean isOneWord = splitString.length == 1;
+            String commandWord = splitString[0];
+
+            if (isOneWord) {
+                switch (commandWord.toLowerCase()) {
                 case "list":
                     return new ListCommand();
                 case "bye":
                     return new ExitCommand();
+                case "listtag":
+                    return new ListTagCommand();
                 default:
-                    throw new DukeException("Invalid Input!");
+                    throw new DukeException(MESSAGE_INVALID_INPUT);
                 }
+
             } else {
-                switch (splitString[0].toLowerCase()) {
+                switch (commandWord.toLowerCase()) {
                 case "todo":
                     return new AddTodo(splitString[1]);
                 case "deadline":
@@ -55,12 +57,19 @@ public class Parser {
                     return new DeleteCommand(splitString[1]);
                 case "find":
                     return new FindCommand(splitString[1]);
+                case "findtag":
+                    return new FindTagCommand(splitString[1]);
+                case "addtag":
+                    return new AddTagCommand(splitString[1]);
+                case "deltag":
+                    return new DeleteTagCommand(splitString[1]);
                 default:
-                    throw new DukeException("Invalid Input!");
+                    throw new DukeException(MESSAGE_INVALID_INPUT);
                 }
             }
+
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid description");
+            throw new DukeException(MESSAGE_INVALID_INPUT);
         }
     }
 
@@ -74,27 +83,64 @@ public class Parser {
      */
     public static void parseLoad(String loadData, ArrayList<Task> tasks) throws DukeException {
         String[] splitData = loadData.split(" \0 ");
-        if (splitData[0].equals("T")) {
-            Task t = new Todo(splitData[2]);
-            if (splitData[1].equals("1")) {
-                t.markAsDone();
+        String taskType = splitData[0];
+        String desc = splitData[2];
+        boolean isDone = splitData[1].equals("1");
+        Task t;
+        switch (taskType) {
+        case "T":
+            boolean isTaggedT = splitData.length == 4;
+            if (isTaggedT) {
+                String tags = splitData[3];
+                t = new Todo(desc, parseTags(tags));
+            } else {
+                t = new Todo(desc);
             }
-            tasks.add(t);
-        } else if (splitData[0].equals("D")) {
-            Task t = new Deadline(splitData[2], splitData[3]);
-            if (splitData[1].trim().equals("1")) {
-                t.markAsDone();
+            break;
+        case "D":
+            boolean isTaggedD = splitData.length == 5;
+            String by = splitData[3];
+            if (isTaggedD) {
+                String tags = splitData[4];
+                t = new Deadline(desc, by, parseTags(tags));
+            } else {
+                t = new Deadline(desc, by);
             }
-            tasks.add(t);
-        } else {
-            assert splitData[0].equals("E") : splitData[0];
-            Task t = new Event(splitData[2], splitData[3]);
-            if (splitData[1].equals("1")) {
-                t.markAsDone();
+            break;
+        default:
+            assert false;
+            boolean isTaggedE = splitData.length == 5;
+            String at = splitData[3];
+            if (isTaggedE) {
+                String tags = splitData[4];
+                t = new Event(desc, at, parseTags(tags));
+            } else {
+                t = new Event(desc, at);
             }
-            tasks.add(t);
         }
+
+        assert t!= null;
+        if (isDone) {
+            t.markAsDone();
+        }
+
+        tasks.add(t);
     }
 
+    /**
+     * Puts all the tags specified in a string in a hashset.
+     * @param t string of tags.
+     * @return hashset of tag objects.
+     */
+    public static HashSet<Tag> parseTags(String t) throws DukeException {
+        boolean isWhiteSpace = t.trim().isEmpty();
+        if (isWhiteSpace) {
+            throw new DukeException(MESSAGE_INVALID_TAG);
+        }
+        HashSet<Tag> tags = new HashSet<Tag>();
+        String[] splitTags = t.split(" ");
+        Arrays.stream(splitTags).map(Tag::new).forEach(tags::add);
+        return tags;
+    }
 
 }

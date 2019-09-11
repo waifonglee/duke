@@ -1,6 +1,10 @@
 package duke.task;
 
 import duke.exception.DukeException;
+import duke.tag.Tag;
+
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Represents a task.
@@ -12,17 +16,42 @@ public class Task {
     /** Boolean which represents whether the task is completed. */
     protected boolean isDone = false;
 
+    /** Hashset of tags belonging to this task. */
+    protected HashSet<Tag> tags = new HashSet<Tag>();
+
+    private static final String MESSAGE_EMPTY_DESC = "Invalid description entered";
+
+    private static final String MESSAGE_DUPLICATE_TAG = "Duplicate tag";
+
+    private static final String MESSAGE_NO_SUCH_TAG = "No such tag";
+
     /**
      * Initializes a Task Object with the description of the task.
      * Task Object initializes as uncompleted.
      * @param description description of the task.
-     * @throws DukeException if description is empty or just white spaces.
+     * @throws DukeException if description consist of white spaces.
      */
     public Task(String description) throws DukeException {
-        if (description.trim().isEmpty()) {
-            throw new DukeException("Description shouldn't be empty!");
+        boolean isSpaces = description.trim().isEmpty();
+        if (isSpaces) {
+            throw new DukeException(MESSAGE_EMPTY_DESC);
         }
         this.description = description;
+    }
+
+    /**
+     * Initializes a Task Object with description and its tags.
+     * @param description description of task.
+     * @param tags tags belonging to the tasks.
+     * @throws DukeException if description consist of white spaces.
+     */
+    public Task(String description, HashSet<Tag> tags) throws DukeException {
+        boolean isSpaces = description.trim().isEmpty();
+        if (isSpaces) {
+            throw new DukeException(MESSAGE_EMPTY_DESC);
+        }
+        this.description = description;
+        this.tags = tags;
     }
 
     /**
@@ -41,12 +70,12 @@ public class Task {
     }
 
     /**
-     * Returns a string consisting of keywords that users can use to search for this
-     * task.
-     * @return String of keywords.
+     * Checks whether the task description contains a certain word.
+     * @param word word to search for.
+     * @return whether description contains the word.
      */
-    public String getKeywords() {
-        return description;
+    public boolean hasWord(String word) {
+        return description.toLowerCase().contains(word.toLowerCase());
     }
 
     /**
@@ -55,7 +84,64 @@ public class Task {
      */
     public String getSaveData() {
         String status = isDone ? "1" : "0";
-        return status + " \0 " + description;
+        boolean isTagged = !tags.isEmpty();
+        if (isTagged) {
+            return status + " \0 " + description + " \0 " + getTags();
+        } else {
+            return status + " \0 " + description;
+        }
+    }
+
+    /**
+     * Returns string representation of all tags with this task for writing data.
+     * @return string representation of tags.
+     */
+    protected String getTags() {
+        StringBuilder sb = new StringBuilder();
+        Iterator value = tags.iterator();
+        while (value.hasNext()) {
+            sb.append(value.next() + " ");
+        }
+        return sb.toString().trim();
+    }
+
+    /**
+     * Checks if this task is tagged with the specific tag.
+     * @param tag tag to be checked against.
+     * @return if task is tagged with the tag.
+     */
+    public boolean hasTag(Tag tag) {
+        return tags.contains(tag);
+    }
+
+    /**
+     * Adds a tag into its list.
+     * @param tag tag to be added.
+     * @throws DukeException if its a duplicate tag.
+     */
+    public void addTag(Tag tag) throws DukeException {
+        if (!tags.contains(tag)) {
+            tags.add(tag);
+        } else {
+            throw new DukeException(MESSAGE_DUPLICATE_TAG);
+        }
+    }
+
+    /**
+     * Removes a tag from its list.
+     * @param tag tag to be removed.
+     * @throws DukeException if theres no such tag.
+     */
+    public void rmTag(Tag tag) throws DukeException {
+        if (tags.contains(tag)) {
+            tags.remove(tag);
+        } else {
+            throw new DukeException(MESSAGE_NO_SUCH_TAG);
+        }
+    }
+
+    public HashSet<Tag> getTagSet() {
+        return tags;
     }
 
     /**
@@ -64,6 +150,11 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        boolean isTagged = !tags.isEmpty();
+        if (isTagged) {
+            return "[" + getStatusIcon() + "] " + description + tags;
+        } else {
+            return "[" + getStatusIcon() + "] " + description;
+        }
     }
 }

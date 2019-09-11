@@ -4,6 +4,9 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Represents command to search for a task by searching a keyword.
  */
@@ -26,18 +29,14 @@ public class FindCommand extends Command {
      * @return String to notify the user of the execution of this command.
      */
     public String execute(TaskList tasks, Storage storage) {
+        List<Task> taskWithKey = tasks.getStream()
+                .filter(t -> t.hasWord(userIn)).collect(Collectors.toList());
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks in your list + \n");
+        sb.append("Here are the matching tasks in your list \n");
         int count = 1;
-        for (int i = 0; i < tasks.getSize(); i++) {
-            Task currTask = tasks.getTask(i);
-            String[] splitString = currTask.getKeywords().split(" ");
-            for (String s : splitString) {
-                if (s.equalsIgnoreCase(userIn)) {
-                    sb.append(count + ". " + currTask + "\n");
-                    count++;
-                }
-            }
+        for (Task t:taskWithKey) {
+            sb.append(count + ": " + t + "\n");
+            count++;
         }
         return sb.toString();
     }
