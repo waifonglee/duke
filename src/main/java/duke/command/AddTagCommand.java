@@ -10,11 +10,11 @@ public class AddTagCommand extends Command {
     /** User input. */
     String userIn;
 
-    public static final String MESSAGE_SUCCESS = "Tag has been added \n %s";
+    private static final String MESSAGE_SUCCESS = "Tag has been added \n %s";
 
-    public static final String MESSAGE_INVALID_FORMAT = "Invalid input: addtag (num) (tag)";
+    private static final String MESSAGE_INVALID_FORMAT = "Invalid input: addtag (num) (tag)";
 
-    public static final String MESSAGE_INVALID_NUM_TAG = "One tag only";
+    private static final String MESSAGE_INVALID_NUM_TAG = "One tag only";
 
     /**
      * Initializes an instance of AddTagCommand with user input.

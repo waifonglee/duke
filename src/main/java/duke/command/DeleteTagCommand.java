@@ -10,11 +10,11 @@ public class DeleteTagCommand extends Command {
     /** User input. */
     String userIn;
 
-    public static final String MESSAGE_SUCCESS = "Tag has been deleted \n %s";
+    private static final String MESSAGE_SUCCESS = "Tag has been deleted \n %s";
 
-    public static final String MESSAGE_INVALID_FORMAT = "Invalid input: deltag (num) (tag)";
+    private static final String MESSAGE_INVALID_FORMAT = "Invalid input: deltag (num) (tag)";
 
-    public static final String MESSAGE_INVALID_NUM_TAG = "One tag only";
+    private static final String MESSAGE_INVALID_NUM_TAG = "One tag only";
 
     /**
      * Initializes an instance of DeleteTagCommand with user input.
