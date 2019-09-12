@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class FindTagCommand extends Command {
     /** Tag name entered by user. */
     protected String userIn;
+
     /** Tag object. */
     protected Tag tag;
 
