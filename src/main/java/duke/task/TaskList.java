@@ -43,6 +43,14 @@ public class TaskList {
         tm.putTags(task.getTagSet());
     }
 
+    /**
+     * Deletes or adds a tag to the task.
+     * @param ind index of task to be altered.
+     * @param tag tag to be added or deleted.
+     * @param isAdding boolean to represent whether to add or delete the tag.
+     * @throws DukeException if the task does not have the tag to delete or if the task already
+     * has the tag.
+     */
     public void alterTaskTag(int ind, Tag tag, boolean isAdding) throws DukeException {
         Task task = tasks.get(ind);
         if (isAdding) {

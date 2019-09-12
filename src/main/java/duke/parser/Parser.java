@@ -1,7 +1,20 @@
 package duke.parser;
 
-import duke.command.*;
 import duke.exception.DukeException;
+
+import duke.command.AddDeadline;
+import duke.command.AddEvent;
+import duke.command.AddTagCommand;
+import duke.command.AddTodo;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DeleteTagCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.FindTagCommand;
+import duke.command.ListCommand;
+import duke.command.ListTagCommand;
 
 import duke.tag.Tag;
 import duke.task.Deadline;
@@ -119,7 +132,7 @@ public class Parser {
             }
         }
 
-        assert t!= null;
+        assert t != null;
         if (isDone) {
             t.markAsDone();
         }

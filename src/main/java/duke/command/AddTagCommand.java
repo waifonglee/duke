@@ -25,7 +25,7 @@ public class AddTagCommand extends Command {
     }
 
     /**
-     * Adds a tag to specified task by user
+     * Adds a tag to specified task by user.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
      * @return String to notify the user of the execution of this command.
