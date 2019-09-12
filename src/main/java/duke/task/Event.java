@@ -103,7 +103,7 @@ public class Event extends Task {
         if (isTagged) {
             return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")" + tags;
         } else {
-            return "[E]" + "[" +getStatusIcon() + "] " + description + " (at: " + at + ")";
+            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")";
         }
     }
 }

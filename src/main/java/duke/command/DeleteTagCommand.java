@@ -25,7 +25,7 @@ public class DeleteTagCommand extends Command {
     }
 
     /**
-     * Deletes a tag from specified task by user
+     * Deletes a tag from specified task by user.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
      * @return String to notify the user of the execution of this command.
