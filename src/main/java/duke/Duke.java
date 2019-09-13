@@ -26,6 +26,7 @@ public class Duke {
      */
     public String loadStorage() {
         String s = "Hello i'm Duke! What can i do for you?";
+
         try {
             tasks = new TaskList(storage.load());
             return "Successfully loaded previous data. \n" + s;

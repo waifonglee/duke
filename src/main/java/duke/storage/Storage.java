@@ -42,15 +42,19 @@ public class Storage {
     public ArrayList<Task> load() throws DukeException {
         try {
             boolean shouldCreate = dataFile.createNewFile();
+
             if (shouldCreate) {
                 throw new DukeException(MESSAGE_NO_PREV_DATA);
             }
+
             ArrayList<Task> tasks = new ArrayList<Task>();
             Scanner sc = new Scanner(dataFile);
+
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
                 Parser.parseLoad(data, tasks);
             }
+
             return tasks;
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
@@ -65,10 +69,13 @@ public class Storage {
     public void saveAll(TaskList tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(dataFile);
+
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task currTask = tasks.getTask(i);
-                fw.write(currTask.getSaveData() + "\n");
+                fw.write(currTask.getSaveData());
+                fw.write(System.lineSeparator());
             }
+
             fw.close();
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
