@@ -50,8 +50,8 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:`\
-`[T][✘] borrow book`\
+`Got it. I've added this task:`<br/>
+`[T][✘] borrow book`<br/>
 `Now you have 1 task(s) in the list.`
              
 
@@ -65,8 +65,8 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:`\
-`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019)`\
+`Got it. I've added this task:`<br/>
+`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019)`<br/>
 `Now you have 2 task(s) in the list.`
 
 ### `deadline (description) /by (dd/MM/yyyy HHmm) /tag (tag)`
@@ -79,8 +79,8 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:`\
-`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019) [school, cs]`\
+`Got it. I've added this task:`<br/>
+`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019) [school, cs]`<br/>
 `Now you have 2 task(s) in the list.`
 
 ### `event (description) /at (dd/MM/yyyy HHmm)`
@@ -93,8 +93,8 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:`\
-`[E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019)`\
+`Got it. I've added this task:`<br/>
+`[E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019)`<br/>
 `Now you have 2 task(s) in the list.`
 
 ### `event (description) /at (dd/MM/yyyy HHmm) /tag (tag)`
@@ -107,8 +107,8 @@ Example of usage:
 
 Expected outcome:
 
-`Got it. I've added this task:`\
-`[E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019) [home, food]`\
+`Got it. I've added this task:`<br/>
+`[E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019) [home, food]`<br/>
 `Now you have 2 task(s) in the list.`
 
 ### `delete (task number)`
@@ -121,8 +121,8 @@ Example of usage:
 
 Expected outcome:
 
-`Noted. I've removed this task:`\
-`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019) [school, cs]`\
+`Noted. I've removed this task:`<br/>
+`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019) [school, cs]`<br/>
 `"Now you have 1 task(s) in the list`
 
 ### `done (task number)`
@@ -135,7 +135,7 @@ Example of usage:
 
 Expected outcome:
 
-`Nice! I've marked this task as done:`\
+`Nice! I've marked this task as done:`<br/>
 `[T][✓] borrow book`
 
 ### `list`
@@ -148,8 +148,8 @@ Example of usage:
 
 Expected outcome:
 
-`Here are the tasks in your list:`\
-`1. [T][✘] borrow book`\
+`Here are the tasks in your list:`<br/>
+`1. [T][✘] borrow book`<br/>
 `2. [E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019) [home, food]`
 
 
@@ -164,7 +164,7 @@ Example of usage:
 
 Expected outcome:
 
-`Tag has been added`\
+`Tag has been added`<br/>
 `[T][✘] borrow book [leisure, school]`
 
 ### `deltag (task number) (tag name)`
@@ -177,7 +177,7 @@ Example of usage:
 
 Expected outcome:
 
-`Tag has been deleted`\
+`Tag has been deleted`<br/>
 `[T][✘] borrow book [leisure]`
 
 ### `findtag (tag name)`
@@ -190,8 +190,8 @@ Example of usage:
 
 Expected outcome:
 
-`Here are the tasks under school:`\
-`1. [T][✘] borrow book`\
+`Here are the tasks under school:`<br/>
+`1. [T][✘] borrow book`<br/>
 `2. [T][✘] assignment`
 
 
@@ -205,8 +205,8 @@ Example of usage:
 
 Expected outcome:
 
-`Here are the matching tasks in your list:`\
-    `1. [T][✘] lab 1`\
+`Here are the matching tasks in your list:`<br/>
+    `1. [T][✘] lab 1`<br/>
     `2. [T][✘] lab 2`
 
 ### `listtag`
@@ -219,8 +219,8 @@ Example of usage:
 
 Expected outcome:
 
-`Here are all the tags:`\
-    `school`\
+`Here are all the tags:`<br/>
+    `school`<br/>
     `home`
 
 ### `bye`
