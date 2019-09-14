@@ -7,18 +7,21 @@ import duke.task.TaskList;
  * Represents a command to list out all the tasks created by the user.
  */
 public class ListCommand extends Command {
+    private static final String MESSAGE_SUCCESS = "Here are the tasks in your list: \n";
     /**
      * Lists out the tasks created by the user.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
-     * @return String to notify the user of the execution of this command.
+     * @return CommandResult result of executing the command.
      */
-    public String execute(TaskList tasks, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) {
+       return new CommandResult(listTasks(tasks));
+    }
+
+    private String listTasks(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks in your list: \n");
-        for (int i = 0; i < tasks.getSize(); i++) {
-            sb.append(i + 1 + ". " + tasks.getTask(i) + "\n");
-        }
+        sb.append(MESSAGE_SUCCESS);
+        sb.append(tasks);
         return sb.toString();
     }
 }

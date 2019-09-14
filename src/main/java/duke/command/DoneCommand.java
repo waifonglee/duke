@@ -21,22 +21,22 @@ public class DoneCommand extends Command {
      * @param userIn index of task user has completed.
      */
     public DoneCommand(String userIn) {
-        this.userIn = userIn;
+        this.userIn = userIn.trim();
     }
 
     /**
      * Completes a specified task by marking it as done.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
-     * @return String to notify the user of the execution of this command.
+     * @return CommandResult result of executing the command.
      * @throws DukeException if index in user input is invalid.
      */
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
         try {
             int taskInd = Integer.parseInt(userIn) - 1;
             Task currTask = tasks.getTask(taskInd);
             currTask.markAsDone();
-            return String.format(MESSAGE_SUCCESS,currTask);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, currTask));
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException(MESSAGE_INVALID_NUM);
         }

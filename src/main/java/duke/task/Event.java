@@ -31,7 +31,7 @@ public class Event extends Task {
      * This object is initialized as uncompleted.
      * @param description description of the event.
      * @param at date and time of the event.
-     * @throws DukeException if description is empty or the date and time is of the wrong format.
+     * @throws DukeException if date and time is of the wrong format.
      */
     public Event(String description, String at) throws DukeException {
         super(description);
@@ -44,7 +44,7 @@ public class Event extends Task {
      * @param description description of event.
      * @param at date and time of event.
      * @param tags tags tagged with event.
-     * @throws DukeException if description is empty or date and itme is of wrong format.
+     * @throws DukeException if date and time is of wrong format.
      */
     public Event(String description, String at, HashSet<Tag> tags) throws DukeException {
         super(description, tags);
@@ -101,9 +101,9 @@ public class Event extends Task {
         assert dateAt != null;
         boolean isTagged = !tags.isEmpty();
         if (isTagged) {
-            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")" + tags;
+            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + dateAt + ")" + " " + tags;
         } else {
-            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")";
+            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + dateAt + ")";
         }
     }
 }

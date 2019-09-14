@@ -30,7 +30,7 @@ public class Deadline extends Task {
      * This object is initialized as uncompleted.
      * @param description description of the task.
      * @param by deadline of the task.
-     * @throws DukeException if description is empty or the deadline is of the wrong format.
+     * @throws DukeException if deadline is of the wrong format.
      */
     public Deadline(String description, String by) throws DukeException {
         super(description);
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      * @param description description of the task.
      * @param by deadline of task.
      * @param tags tags tagged with tasks.
-     * @throws DukeException if description is empty or the deadline is of the wrong format.
+     * @throws DukeException if deadline is of the wrong format.
      */
     public Deadline(String description, String by, HashSet<Tag> tags) throws DukeException {
         super(description, tags);
@@ -100,9 +100,9 @@ public class Deadline extends Task {
         assert dateBy != null;
         boolean isTagged = !tags.isEmpty();
         if (isTagged) {
-            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")" + tags;
+            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + dateBy + ")" + " " + tags;
         } else {
-            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + dateBy + ")";
         }
     }
 }

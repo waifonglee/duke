@@ -19,8 +19,6 @@ public class Task {
     /** Hashset of tags belonging to this task. */
     protected HashSet<Tag> tags = new HashSet<Tag>();
 
-    private static final String MESSAGE_EMPTY_DESC = "Invalid description entered";
-
     private static final String MESSAGE_DUPLICATE_TAG = "Duplicate tag";
 
     private static final String MESSAGE_NO_SUCH_TAG = "No such tag";
@@ -29,13 +27,8 @@ public class Task {
      * Initializes a Task Object with the description of the task.
      * Task Object initializes as uncompleted.
      * @param description description of the task.
-     * @throws DukeException if description consist of white spaces.
      */
-    public Task(String description) throws DukeException {
-        boolean isSpaces = description.trim().isEmpty();
-        if (isSpaces) {
-            throw new DukeException(MESSAGE_EMPTY_DESC);
-        }
+    public Task(String description) {
         this.description = description;
     }
 
@@ -43,13 +36,8 @@ public class Task {
      * Initializes a Task Object with description and its tags.
      * @param description description of task.
      * @param tags tags belonging to the tasks.
-     * @throws DukeException if description consist of white spaces.
      */
-    public Task(String description, HashSet<Tag> tags) throws DukeException {
-        boolean isSpaces = description.trim().isEmpty();
-        if (isSpaces) {
-            throw new DukeException(MESSAGE_EMPTY_DESC);
-        }
+    public Task(String description, HashSet<Tag> tags) {
         this.description = description;
         this.tags = tags;
     }
@@ -152,7 +140,7 @@ public class Task {
     public String toString() {
         boolean isTagged = !tags.isEmpty();
         if (isTagged) {
-            return "[" + getStatusIcon() + "] " + description + tags;
+            return "[" + getStatusIcon() + "] " + description + " " + tags;
         } else {
             return "[" + getStatusIcon() + "] " + description;
         }

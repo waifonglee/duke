@@ -13,9 +13,8 @@ public class Todo extends Task {
      * Initializes a Todo object with the description of the task.
      * This object is initialized as uncompleted.
      * @param description description of the task.
-     * @throws DukeException if description is empty or just white spaces.
      */
-    public Todo(String description) throws DukeException {
+    public Todo(String description) {
         super(description);
     }
 
@@ -23,9 +22,8 @@ public class Todo extends Task {
      * Initializes a Todo object with description and tags of the task.
      * @param description description of task.
      * @param tags tags tagged with the task.
-     * @throws DukeException if description is empty or just white spaces.
      */
-    public Todo(String description, HashSet<Tag> tags) throws DukeException {
+    public Todo(String description, HashSet<Tag> tags) {
         super(description, tags);
     }
 

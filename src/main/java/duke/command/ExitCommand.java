@@ -14,12 +14,13 @@ public class ExitCommand extends Command {
      * Saves the TaskList in the storage file and changes isExit to true to exit the program.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
-     * @return String to notify the user of the execution of this command.
+     * @return CommandResult result of executing the command.
      * @throws DukeException if there is a saving error.
      */
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
         storage.saveAll(tasks);
-        isExit = true;
-        return MESSAGE_SUCCESS;
+        CommandResult result = new CommandResult(MESSAGE_SUCCESS);
+        result.exit();
+        return result;
     }
 }

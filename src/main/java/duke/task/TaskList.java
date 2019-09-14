@@ -104,4 +104,12 @@ public class TaskList {
     public Stream<Task> getStream() {
         return tasks.stream();
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(i + 1 + ". " + tasks.get(i) + "\n");
+        }
+        return sb.toString();
+    }
 }

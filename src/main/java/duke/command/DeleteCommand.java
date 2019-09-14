@@ -22,23 +22,23 @@ public class DeleteCommand extends Command {
      * @param userIn index of task user wants to delete.
      */
     public DeleteCommand(String userIn) {
-        this.userIn = userIn;
+        this.userIn = userIn.trim();
     }
 
     /**
      * Deletes a specified task requested by the user.
      * @param tasks TaskList object which represents the list of tasks created by the user.
      * @param storage storage which loads, saves and stores data of user.
-     * @return String to notify the user of the execution of this command.
+     * @return CommandResult result of executing the command.
      * @throws DukeException if index in user input is invalid.
      */
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
         try {
             int taskInd = Integer.parseInt(userIn) - 1;
             Task delTask = tasks.getTask(taskInd);
             tasks.deleteTask(taskInd);
             int taskNum = tasks.getSize();
-            return String.format(MESSAGE_SUCCESS, delTask, taskNum);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, delTask, taskNum));
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException(MESSAGE_INVALID_NUM);
         }

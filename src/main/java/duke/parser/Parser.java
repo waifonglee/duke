@@ -41,9 +41,9 @@ public class Parser {
      */
     public static Command parseCommand(String command) throws DukeException {
         try {
-            String[] splitString = command.split(" ", 2);
-            boolean isOneWord = splitString.length == 1;
-            String commandWord = splitString[0];
+            String[] args = getArgs(command.trim());
+            String commandWord = args[0];
+            boolean isOneWord = isOneWord(command.trim());
 
             if (isOneWord) {
                 switch (commandWord.toLowerCase()) {
@@ -60,23 +60,23 @@ public class Parser {
             } else {
                 switch (commandWord.toLowerCase()) {
                 case "todo":
-                    return new AddTodo(splitString[1]);
+                    return new AddTodo(args[1]);
                 case "deadline":
-                    return new AddDeadline(splitString[1]);
+                    return new AddDeadline(args[1]);
                 case "event":
-                    return new AddEvent(splitString[1]);
+                    return new AddEvent(args[1]);
                 case "done":
-                    return new DoneCommand(splitString[1]);
+                    return new DoneCommand(args[1]);
                 case "delete":
-                    return new DeleteCommand(splitString[1]);
+                    return new DeleteCommand(args[1]);
                 case "find":
-                    return new FindCommand(splitString[1]);
+                    return new FindCommand(args[1]);
                 case "findtag":
-                    return new FindTagCommand(splitString[1]);
+                    return new FindTagCommand(args[1]);
                 case "addtag":
-                    return new AddTagCommand(splitString[1]);
+                    return new AddTagCommand(args[1]);
                 case "deltag":
-                    return new DeleteTagCommand(splitString[1]);
+                    return new DeleteTagCommand(args[1]);
                 default:
                     throw new DukeException(MESSAGE_INVALID_INPUT);
                 }
@@ -85,6 +85,14 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MESSAGE_INVALID_INPUT);
         }
+    }
+
+    private static String[] getArgs(String command) {
+        return command.split(" ", 2);
+    }
+
+    private static boolean isOneWord(String command) {
+        return command.split(" ").length == 1;
     }
 
     /**
@@ -96,49 +104,86 @@ public class Parser {
      * @throws DukeException if description or time and date of tasks are invalid.
      */
     public static void parseLoad(String loadData, ArrayList<Task> tasks) throws DukeException {
-        String[] splitData = loadData.split(" \0 ");
-        String taskType = splitData[0];
-        String desc = splitData[2];
-        boolean isDone = splitData[1].equals("1");
+        String[] args = loadData.split(" \0 ");
+        String taskType = args[0];
         Task t;
+
         switch (taskType) {
         case "T":
-            boolean isTaggedT = splitData.length == 4;
-            if (isTaggedT) {
-                String tags = splitData[3];
-                t = new Todo(desc, parseTags(tags));
-            } else {
-                t = new Todo(desc);
-            }
+            t = createTodo(args);
             break;
         case "D":
-            boolean isTaggedD = splitData.length == 5;
-            String by = splitData[3];
-            if (isTaggedD) {
-                String tags = splitData[4];
-                t = new Deadline(desc, by, parseTags(tags));
-            } else {
-                t = new Deadline(desc, by);
-            }
+            t = createDeadline(args);
             break;
         default:
             assert false;
-            boolean isTaggedE = splitData.length == 5;
-            String at = splitData[3];
-            if (isTaggedE) {
-                String tags = splitData[4];
-                t = new Event(desc, at, parseTags(tags));
-            } else {
-                t = new Event(desc, at);
-            }
+            t = createEvent(args);
         }
 
         assert t != null;
+        tasks.add(t);
+    }
+
+    private static Task createTodo(String[] args) throws DukeException {
+        String desc = args[2];
+        boolean isDone = args[1].equals("1");
+        boolean isTagged = args.length == 4;
+        Task t;
+
+        if (isTagged) {
+            String tags = args[3];
+            t = new Todo(desc, parseTags(tags));
+        } else {
+            t = new Todo(desc);
+        }
+
         if (isDone) {
             t.markAsDone();
         }
 
-        tasks.add(t);
+        return t;
+    }
+
+    private static Task createDeadline(String[] args) throws DukeException {
+        String desc = args[2];
+        boolean isDone = args[1].equals("1");
+        boolean isTagged = args.length == 5;
+        String by = args[3];
+        Task t;
+
+        if (isTagged) {
+            String tags = args[4];
+            t = new Deadline(desc, by, parseTags(tags));
+        } else {
+            t = new Deadline(desc, by);
+        }
+
+        if (isDone) {
+            t.markAsDone();
+        }
+
+        return t;
+    }
+
+    private static Task createEvent(String[] args) throws DukeException {
+        String desc = args[2];
+        boolean isDone = args[1].equals("1");
+        boolean isTagged = args.length == 5;
+        String at = args[3];
+        Task t;
+
+        if (isTagged) {
+            String tags = args[4];
+            t = new Event(desc, at, parseTags(tags));
+        } else {
+            t = new Event(desc, at);
+        }
+
+        if (isDone) {
+            t.markAsDone();
+        }
+
+        return t;
     }
 
     /**

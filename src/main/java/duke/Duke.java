@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.CommandResult;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.parser.Parser;
@@ -52,9 +53,9 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command c = Parser.parseCommand(input);
-            String response = c.execute(tasks, storage);
-            isExit = c.isExit();
-            return response;
+            CommandResult result = c.execute(tasks, storage);
+            isExit = result.isExit();
+            return result.getFeedBack();
         } catch (DukeException e) {
             return e.getMessage();
         }

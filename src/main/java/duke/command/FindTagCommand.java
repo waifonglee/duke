@@ -31,18 +31,24 @@ public class FindTagCommand extends Command {
      * Finds tasks that are tagged with the specific tag.
      * @param tasks TaskList representing a list of all tasks.
      * @param storage storage used for saving, loading and storing user data.
-     * @return String to notify the user of the execution of this command.
+     * @return CommandResult result of executing the command.
      */
-    public String execute(TaskList tasks, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) {
         List<Task> sameTagTasks = tasks.getStream().filter(task -> task.hasTag(tag))
                 .collect(Collectors.toList());
+        return new CommandResult(listTasks(sameTagTasks));
+    }
+
+    private String listTasks(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks under " + userIn + ":\n");
         int count = 1;
-        for (Task t : sameTagTasks) {
+
+        for (Task t : tasks) {
             sb.append(count + ": " + t + "\n");
             count++;
         }
+
         return sb.toString();
     }
 
