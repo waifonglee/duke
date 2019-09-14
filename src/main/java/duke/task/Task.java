@@ -118,7 +118,7 @@ public class Task {
     /**
      * Removes a tag from its list.
      * @param tag tag to be removed.
-     * @throws DukeException if theres no such tag.
+     * @throws DukeException if there is no such tag.
      */
     public void rmTag(Tag tag) throws DukeException {
         if (tags.contains(tag)) {
