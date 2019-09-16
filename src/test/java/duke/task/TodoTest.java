@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TodoTest {
     @Test
     public void testToString() throws DukeException {
-        assertEquals("[T][\u2718] do 2103 project",
+        assertEquals("[T][✘] do 2103 project",
                 new Todo("do 2103 project").toString());
     }
 
