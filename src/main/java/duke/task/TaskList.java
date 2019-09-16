@@ -105,6 +105,10 @@ public class TaskList {
         return tasks.stream();
     }
 
+    /**
+     * Returns a string representation of the tasklist.
+     * @return string representation of tasklist.
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {

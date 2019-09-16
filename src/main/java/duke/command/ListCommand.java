@@ -8,6 +8,7 @@ import duke.task.TaskList;
  */
 public class ListCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Here are the tasks in your list: \n";
+
     /**
      * Lists out the tasks created by the user.
      * @param tasks TaskList object which represents the list of tasks created by the user.
@@ -15,7 +16,7 @@ public class ListCommand extends Command {
      * @return CommandResult result of executing the command.
      */
     public CommandResult execute(TaskList tasks, Storage storage) {
-       return new CommandResult(listTasks(tasks));
+        return new CommandResult(listTasks(tasks));
     }
 
     private String listTasks(TaskList tasks) {

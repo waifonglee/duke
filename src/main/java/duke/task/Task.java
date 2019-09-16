@@ -47,7 +47,7 @@ public class Task {
      * @return Status icon to represent whether this task is completed.
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718");
+        return (isDone ? "✓" : "✘");
     }
 
     /**
