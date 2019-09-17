@@ -9,6 +9,7 @@
     * 1.5.2 [Delete a tag](#152-delete-a-tag) : `deltag` <br/>
     * 1.5.3 [Filter by tag](#153-filter-by-tag) : `findtag` <br/>
     * 1.5.4 [List all tags](#154-list-all-tags) : `listtag` <br/>
+    
     1.6. [Filter by keyword](#16-filter-by-keyword) : `find` <br/>
     1.7. [Exit Duke](#17-exit-duke) : `bye` <br/>
 
