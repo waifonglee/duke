@@ -1,241 +1,95 @@
 # User Guide
+[Features](#1-features)  
+    1.1. [Adding new task] (#11-add-new-task) : `todo`, `event`, `deadline` <br/>
+    1.2. [Delete a task] (#12-delete-a-task) : `delete` <br/>
+    1.3. [Complete a task] (#13-complete-a-task) : `done` <br/>
+    1.4. [List all tasks] (#14-list-all-tasks) : `list` <br/>
+    1.5. [Tag a task] (#15-tag-a-task): <br/>
+        * 1.5.1 [Add a tag] (#151-add-a-tag) : `addtag` <br/>
+        * 1.5.2 [Delete a tag] (#152-delete-a-tag) : `deltag` <br/>
+        * 1.5.3 [Filter by tag] (#153-filter-by-tag) : `findtag` <br/>
+        * 1.5.4 [List all tags] (#154-list-all-tags) : `listtag` <br/>
+    1.6. [Filter by keyword] (#16-filter-by-keyword) : `find` <br/>
+    1.7. [Exit Duke] (#17-exit-duke) : `bye` <br/>
 
-## Features 
 
-### Add a todo
-Adds a task without deadline.
+## 1. Features
 
-### Add a deadline
-Adds a task with deadline.
+### 1.1 Adding new task
+Adds a task to your task list. <br/>
+There are three types of task: `todo` `event` `deadline` <br/>
 
-### Add an event
-Adds an event.
+Format: <br/>
+`todo (description)`<br/> 
+`deadline (description) /by (dd/MM/yyyy HHmm)`<br/>
+`deadline (description) /by (dd/MM/yyyy HHmm) /tag (tag)`<br/>
+`event (description) /at (dd/MM/yyyy HHmm)`<br/>
+`event (description) /at (dd/MM/yyyy HHmm) /tag (tag)`<br/>
 
-### Delete a task
-Deletes a task.
 
-### Complete a task
-Mark a task as done.
+### 1.2 Delete a task
 
-### List every tasks in your task list
-Lists out all your tasks.
+Deletes a task from your list. <br/>
 
-### Tag your tasks
-Add tags to task.
+Format: <br/>
+`delete (task number)`
 
-### Delete tags from tasks
-Delete tags from task.
 
-### Filter tasks based on tag
-Filters tasks based on a specific tag.
+### 1.3 Complete a task
+Completes a task in your list. <br/>
 
-### Filter tasks based on keyword
-Filters tasks based on a specific keyword.
+Format:<br/>
+`done (task number)`
 
-### List all tags
-Lists out all the tags.
 
-### Exit Duke
-Exits Duke
+###  1.4 List all tasks
+Lists out all the tasks in your list. <br/>
 
-## Usage
-
-### `todo (description)`
-
-Adds a todo to your task list.
-
-Example of usage: 
-
-`todo borrow book`
-
-Expected outcome:
-
-`Got it. I've added this task:`<br/>
-`[T][✘] borrow book`<br/>
-`Now you have 1 task(s) in the list.`
-             
-
-### `deadline (description) /by (dd/MM/yyyy HHmm)`
-
-Adds a deadline to your task list.
-
-Example of usage: 
-
-`deadline lab /by 01/10/2019 2359`
-
-Expected outcome:
-
-`Got it. I've added this task:`<br/>
-`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019)`<br/>
-`Now you have 2 task(s) in the list.`
-
-### `deadline (description) /by (dd/MM/yyyy HHmm) /tag (tag)`
-
-Adds a deadline to your task list.
-
-Example of usage: 
-
-`deadline lab /by 01/10/2019 2359 /tag school cs`
-
-Expected outcome:
-
-`Got it. I've added this task:`<br/>
-`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019) [school, cs]`<br/>
-`Now you have 2 task(s) in the list.`
-
-### `event (description) /at (dd/MM/yyyy HHmm)`
-
-Adds an event to your task list.
-
-Example of usage: 
-
-`event dinner /at 01/10/2019 2359`
-
-Expected outcome:
-
-`Got it. I've added this task:`<br/>
-`[E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019)`<br/>
-`Now you have 2 task(s) in the list.`
-
-### `event (description) /at (dd/MM/yyyy HHmm) /tag (tag)`
-
-Adds a deadline to your task list.
-
-Example of usage: 
-
-`event dinner /by 01/10/2019 2359 /tag home food`
-
-Expected outcome:
-
-`Got it. I've added this task:`<br/>
-`[E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019) [home, food]`<br/>
-`Now you have 2 task(s) in the list.`
-
-### `delete (task number)`
-
-Deletes a task from your list.
-
-Example of usage: 
-
-`delete 2`
-
-Expected outcome:
-
-`Noted. I've removed this task:`<br/>
-`[D][✘] lab (by: Tue Oct 01 23:59:00 SGT 2019) [school, cs]`<br/>
-`"Now you have 1 task(s) in the list`
-
-### `done (task number)`
-
-Completes a task in your list.
-
-Example of usage: 
-
-`done 2`
-
-Expected outcome:
-
-`Nice! I've marked this task as done:`<br/>
-`[T][✓] borrow book`
-
-### `list`
-
-Lists out all the tasks in your list.
-
-Example of usage: 
-
+Format: <br/>
 `list`
 
-Expected outcome:
 
-`Here are the tasks in your list:`<br/>
-`1. [T][✘] borrow book`<br/>
-`2. [E][✘] dinner (at: Tue Oct 01 23:59:00 SGT 2019) [home, food]`
+### 1.5 Tag a task
+Tags a task. Includes the various functionality: <br/>
 
+### 1.5.1 Add a tag
+Adds a tag to the specified task. <br/>
 
-
-### `addtag (task number) (tag name)`
-
-Adds a tag to the specified task.
-
-Example of usage: 
-
-`addtag 1 school`
-
-Expected outcome:
-
-`Tag has been added`<br/>
-`[T][✘] borrow book [leisure, school]`
-
-### `deltag (task number) (tag name)`
-
-Deletes a tag from a specified task.
-
-Example of usage: 
-
-`deltag 1 school`
-
-Expected outcome:
-
-`Tag has been deleted`<br/>
-`[T][✘] borrow book [leisure]`
-
-### `findtag (tag name)`
-
-Filters tasks based on specified tag.
-
-Example of usage: 
-
-`findtag school`
-
-Expected outcome:
-
-`Here are the tasks under school:`<br/>
-`1. [T][✘] borrow book`<br/>
-`2. [T][✘] assignment`
+Format: <br/>
+ `addtag (task number) (tag name)`
 
 
-### `find (keyword)`
+### 1.5.2 Delete a tag
+Deletes a tag from a specified task. <br/>
+Format: <br/>
+ `deltag (task number) (tag name)`
 
-Filters tasks based on specified keyword.
 
-Example of usage: 
+### 1.5.3 Filter by tag 
+Filters tasks based on specified tag. <br/>
 
-`find lab`
+Format: <br/>
+`findtag (tag name)`
 
-Expected outcome:
 
-`Here are the matching tasks in your list:`<br/>
-    `1. [T][✘] lab 1`<br/>
-    `2. [T][✘] lab 2`
+### 1.5.4 List all tags
+Output a list of all tags. <br/>
 
-### `listtag`
-
-Output a list of all tags.
-
-Example of usage: 
-
+Format: <br/>
 `listtag`
 
-Expected outcome:
+### 1.6 Filter by keyword
+Filters tasks based on specified keyword <br/>
 
-`Here are all the tags:`<br/>
-    `school`<br/>
-    `home`
+Format: <br/>
+`find (keyword)`
 
-### `bye`
 
-Exits from Duke.
+### 1.7 Exit Duke
+Exits from Duke. <br/>
 
-Example of usage: 
-
+Format: <br/>
 `bye`
-
-Expected outcome:
-
-`Bye. Hope to see you again soon!`
-
-
 
 
 
