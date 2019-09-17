@@ -1,5 +1,5 @@
 # User Guide
-1. [Features](#1-features)
+1. [Features](#1-features) <br/>
     1.1. [Adding new task](#11-add-new-task) : `todo`, `event`, `deadline` <br/>
     1.2. [Delete a task](#12-delete-a-task) : `delete` <br/>
     1.3. [Complete a task](#13-complete-a-task) : `done` <br/>
