@@ -51,6 +51,7 @@ public class AddTodo extends Command {
 
             tasks.addTask(newTodo);
             int taskNum = tasks.getSize();
+            storage.saveAll(tasks);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTodo, taskNum));
 
         } catch (ArrayIndexOutOfBoundsException e) {

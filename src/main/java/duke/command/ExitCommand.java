@@ -18,7 +18,6 @@ public class ExitCommand extends Command {
      * @throws DukeException if there is a saving error.
      */
     public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
-        storage.saveAll(tasks);
         CommandResult result = new CommandResult(MESSAGE_SUCCESS);
         result.exit();
         return result;

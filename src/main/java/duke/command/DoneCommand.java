@@ -36,6 +36,7 @@ public class DoneCommand extends Command {
             int taskInd = Integer.parseInt(userIn) - 1;
             Task currTask = tasks.getTask(taskInd);
             currTask.markAsDone();
+            storage.saveAll(tasks);
             return new CommandResult(String.format(MESSAGE_SUCCESS, currTask));
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException(MESSAGE_INVALID_NUM);

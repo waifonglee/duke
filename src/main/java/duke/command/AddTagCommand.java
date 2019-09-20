@@ -38,6 +38,7 @@ public class AddTagCommand extends Command {
 
             if (isOneWordTag) {
                 Task t = addTag(tasks, args);
+                storage.saveAll(tasks);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, t));
             } else {
                 throw new DukeException(MESSAGE_INVALID_NUM_TAG);

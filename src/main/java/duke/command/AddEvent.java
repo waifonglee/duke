@@ -51,6 +51,7 @@ public class AddEvent extends Command {
 
             tasks.addTask(newEvent);
             int taskNum = tasks.getSize();
+            storage.saveAll(tasks);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newEvent, taskNum));
 
         } catch (ArrayIndexOutOfBoundsException e) {

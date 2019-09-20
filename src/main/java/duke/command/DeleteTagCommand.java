@@ -39,6 +39,7 @@ public class DeleteTagCommand extends Command {
 
             if (isOneWordTag) {
                 Task t = delTag(tasks, args);
+                storage.saveAll(tasks);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, t));
             } else {
                 throw new DukeException(MESSAGE_INVALID_NUM_TAG);

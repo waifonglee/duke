@@ -38,6 +38,7 @@ public class DeleteCommand extends Command {
             Task delTask = tasks.getTask(taskInd);
             tasks.deleteTask(taskInd);
             int taskNum = tasks.getSize();
+            storage.saveAll(tasks);
             return new CommandResult(String.format(MESSAGE_SUCCESS, delTask, taskNum));
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException(MESSAGE_INVALID_NUM);

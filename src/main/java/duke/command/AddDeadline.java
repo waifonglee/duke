@@ -51,6 +51,7 @@ public class AddDeadline extends Command {
 
             tasks.addTask(newDl);
             int taskNum = tasks.getSize();
+            storage.saveAll(tasks);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newDl, taskNum));
 
         } catch (ArrayIndexOutOfBoundsException e) {
