@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
@@ -18,7 +19,10 @@
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </HBox.margin></Label>
-        <Circle fx:id="displayPicture" centerX="250.0" centerY="250.0" radius="34.0" />
+        <Circle fx:id="displayPicture" centerX="250.0" centerY="250.0" radius="34.0">
+         <effect>
+            <DropShadow color="#ffa3f9" />
+         </effect></Circle>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
