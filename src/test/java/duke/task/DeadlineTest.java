@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DeadlineTest {
     @Test
     public void testToString() throws DukeException {
-        assertEquals("[D][\u2717] do 2103 project (by: Sat Sep 14 23:59:00 SGT 2019)",
+        assertEquals("[D][\u2717] do 2103 project (by: Sat, 14 Sep 2019 23:59)",
                 new Deadline("do 2103 project", "14/09/2019 2359").toString());
     }
 

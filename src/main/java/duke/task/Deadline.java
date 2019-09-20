@@ -18,8 +18,11 @@ public class Deadline extends Task {
     /** Date object which represents the deadline of the task. */
     protected Date dateBy;
 
-    /** Formatter object to format the deadline correctly. */
+    /** Formatter object to check if format of date entered is correct. */
     protected static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+
+    /** Formatter object to convert the Date into a standard format. */
+    protected static SimpleDateFormat stringFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm");
 
     private static final String MESSAGE_INVALID_DATE = "Invalid Date entered.";
 
@@ -100,9 +103,10 @@ public class Deadline extends Task {
         assert dateBy != null;
         boolean isTagged = !tags.isEmpty();
         if (isTagged) {
-            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + dateBy + ")" + " " + tags;
+            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + stringFormat.format(dateBy)
+                    + ")" + " " + tags;
         } else {
-            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + dateBy + ")";
+            return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + stringFormat.format(dateBy) + ")";
         }
     }
 }

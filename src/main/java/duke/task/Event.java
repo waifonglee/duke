@@ -21,6 +21,9 @@ public class Event extends Task {
     /** Formatter object to format the date and time correctly. */
     protected static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
+    /** Formatter object to convert the Date into a standard format. */
+    protected static SimpleDateFormat stringFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm");
+
     private static final String MESSAGE_INVALID_DATE = "Invalid Date entered.";
 
     private static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date format entered : dd/mm/yyyy HHmm";
@@ -101,9 +104,11 @@ public class Event extends Task {
         assert dateAt != null;
         boolean isTagged = !tags.isEmpty();
         if (isTagged) {
-            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + dateAt + ")" + " " + tags;
+            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + stringFormat.format(dateAt)
+                    + ")" + " " + tags;
         } else {
-            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + dateAt + ")";
+            return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + stringFormat.format(dateAt)
+                    + ")";
         }
     }
 }
