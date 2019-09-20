@@ -58,6 +58,7 @@ public class MainWindow extends AnchorPane {
         );
 
         if (duke.isExit()) {
+
             Platform.exit();
         }
 
